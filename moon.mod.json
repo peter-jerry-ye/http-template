@@ -1,0 +1,11 @@
+{
+    "name": "moonbit-community/http-server",
+    "source": "src",
+    "deps": {
+        "peter-jerry-ye/wasi-imports": "0.1.0",
+        "peter-jerry-ye/io": "0.1.0",
+        "peter-jerry-ye/async": "0.1.0"
+    },
+    "license": "Apache 2.0",
+    "version": "0.1.0"
+}

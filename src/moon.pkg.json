@@ -1,0 +1,28 @@
+{
+  "link": {
+    "wasm": {
+      "exports": [
+        "cabi_realloc:cabi_realloc",
+        "wasmExportHandle:wasi:http/incoming-handler@0.2.0#handle"
+      ],
+      "export-memory-name": "memory",
+      "heap-start-address": 16
+    }
+  },
+  "import": [
+    {
+      "path": "peter-jerry-ye/wasi-imports/ffi",
+      "alias": "ffi"
+    },
+    {
+      "path": "peter-jerry-ye/wasi-imports/interface/wasi/http/types",
+      "alias": "types"
+    },
+    "peter-jerry-ye/async/promise",
+    "peter-jerry-ye/io/io",
+    "peter-jerry-ye/async/loop",
+    "peter-jerry-ye/wasi-imports/interface/wasi/http/outgoingHandler",
+    "peter-jerry-ye/io/http",
+    "peter-jerry-ye/wasi-imports/interface/wasi/io/streams"
+  ]
+}
