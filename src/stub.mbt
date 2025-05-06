@@ -15,7 +15,7 @@ pub fn handle(
 ) -> Unit {
   @promise.spawn(async fn(_defer) {
     try {
-      top!!(request, response_out)
+      top!(request, response_out)
     } catch {
       error => @io.println_sync!("Error \{error}", stream=@io.stderr)
     }
@@ -33,7 +33,7 @@ async fn top(
   let outgoing_body = response.body().unwrap()
   response_out.set(Ok(response))
   let outgoing_stream = outgoing_body.write().unwrap()
-  @io.println!!("Hello World!", stream=outgoing_stream)
+  @io.println!("Hello World!", stream=outgoing_stream)
   outgoing_stream.drop()
   outgoing_body.finish(None).unwrap_or_error!()
 }
