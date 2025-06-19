@@ -14,10 +14,8 @@ pub fn handle(
   response_out : @types.ResponseOutparam
 ) -> Unit {
   @promise.spawn(async fn(_defer) {
-    try {
-      top!(request, response_out)
-    } catch {
-      error => @io.println_sync!("Error \{error}", stream=@io.stderr)
+    top(request, response_out) catch {
+      error => @io.println_sync("Error \{error}", stream=@io.stderr)
     }
   })
   |> ignore
@@ -28,12 +26,12 @@ pub fn handle(
 async fn top(
   _request : @types.IncomingRequest,
   response_out : @types.ResponseOutparam
-) -> Unit! {
-  let response = @http.response!(200)
+) -> Unit raise {
+  let response = @http.response(200)
   let outgoing_body = response.body().unwrap()
   response_out.set(Ok(response))
   let outgoing_stream = outgoing_body.write().unwrap()
-  @io.println!("Hello World!", stream=outgoing_stream)
+  @io.println("Hello World!", stream=outgoing_stream)
   outgoing_stream.drop()
-  outgoing_body.finish(None).unwrap_or_error!()
+  outgoing_body.finish(None).unwrap_or_error()
 }
