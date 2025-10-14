@@ -1,4 +1,4 @@
-///| 
+///|
 /// This function is invoked with an incoming HTTP Request, and a resource
 /// `response-outparam` which provides the capability to reply with an HTTP
 /// Response. The response is sent by calling the `response-outparam.set`
@@ -11,9 +11,9 @@
 /// with an error on its behalf.
 pub fn handle(
   request : @types.IncomingRequest,
-  response_out : @types.ResponseOutparam
+  response_out : @types.ResponseOutparam,
 ) -> Unit {
-  @promise.spawn(async fn(_defer) {
+  @promise.spawn(async fn() {
     top(request, response_out) catch {
       error => @io.println_sync("Error \{error}", stream=@io.stderr)
     }
@@ -25,8 +25,8 @@ pub fn handle(
 ///|
 async fn top(
   _request : @types.IncomingRequest,
-  response_out : @types.ResponseOutparam
-) -> Unit raise {
+  response_out : @types.ResponseOutparam,
+) -> Unit {
   let response = @http.response(200)
   let outgoing_body = response.body().unwrap()
   response_out.set(Ok(response))
