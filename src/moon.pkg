@@ -1,12 +1,10 @@
 import {
   "peter-jerry-ye/wasi-imports/ffi" @ffi,
   "peter-jerry-ye/wasi-imports/interface/wasi/http/types" @types,
-  "peter-jerry-ye/async/promise",
-  "peter-jerry-ye/io/io",
-  "peter-jerry-ye/async/loop",
-  "peter-jerry-ye/io/http",
   "peter-jerry-ye/wasi-imports/interface/wasi/io/streams",
 }
+
+supported_targets = "wasm"
 
 options(
   link: {
