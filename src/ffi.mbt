@@ -6,7 +6,6 @@ pub fn wasmExportHandle(p0 : Int, p1 : Int) -> Unit {
     @types.IncomingRequest::IncomingRequest(p0),
     @types.ResponseOutparam::ResponseOutparam(p1),
   )
-
 }
 
 ///|
