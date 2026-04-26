@@ -10,28 +10,19 @@
 /// `response-outparam` before returning, or else the caller will respond
 /// with an error on its behalf.
 pub fn handle(
-  request : @types.IncomingRequest,
-  response_out : @types.ResponseOutparam,
-) -> Unit {
-  @promise.spawn(async fn() {
-    top(request, response_out) catch {
-      error => @io.println_sync("Error \{error}", stream=@io.stderr)
-    }
-  })
-  |> ignore
-  @io.event_loop.run()
-}
-
-///|
-async fn top(
   _request : @types.IncomingRequest,
   response_out : @types.ResponseOutparam,
 ) -> Unit {
-  let response = @http.response(200)
+  let response = @types.OutgoingResponse::outgoing_response(
+    @types.Fields::fields(),
+  )
+  ignore(response.set_status_code(200U))
   let outgoing_body = response.body().unwrap()
   response_out.set(Ok(response))
   let outgoing_stream = outgoing_body.write().unwrap()
-  @io.println("Hello World!", stream=outgoing_stream)
+  ignore(
+    outgoing_stream.blocking_write_and_flush(b"Hello World!".to_fixedarray()),
+  )
   outgoing_stream.drop()
-  outgoing_body.finish(None).unwrap_or_error()
+  ignore(outgoing_body.finish(None))
 }

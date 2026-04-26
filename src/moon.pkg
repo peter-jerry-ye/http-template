@@ -1,0 +1,20 @@
+import {
+  "peter-jerry-ye/wasi-imports/ffi" @ffi,
+  "peter-jerry-ye/wasi-imports/interface/wasi/http/types" @types,
+  "peter-jerry-ye/wasi-imports/interface/wasi/io/streams",
+}
+
+supported_targets = "wasm"
+
+options(
+  link: {
+    "wasm": {
+      "export-memory-name": "memory",
+      "exports": [
+        "cabi_realloc:cabi_realloc",
+        "wasmExportHandle:wasi:http/incoming-handler@0.2.0#handle",
+      ],
+      "heap-start-address": 16,
+    },
+  },
+)
